@@ -138,5 +138,40 @@ const userOrder: Order = {
     customerName: 'Rahul',
     orderStatus: 'shipped'
 }
-console.log(handleOrder(userOrder));
+// console.log(handleOrder(userOrder));
 
+// ============================================================
+// Problem 4 — External API User
+// ============================================================
+
+// Imagine that an external API returns data whose structure is
+// initially unknown.
+//
+// Create an ApiUser type containing an ID, name, and email.
+// Use type assertion to tell TypeScript that the received API data
+// should be treated as an ApiUser.
+//
+// Then create a getUserEmail() function that accepts an ApiUser
+// and returns the user's email.
+//
+// Think about what could happen if the actual API response does
+// not contain the properties expected by ApiUser.
+//
+// Concepts: unknown, type, type assertion
+
+type ApiUser = {
+    id: number;
+    name: string;
+    email: string;
+}
+
+function getUserEmail(response: unknown): string {
+    let data = response as ApiUser;
+    return `User email is:${data.email}`;
+}
+console.log(getUserEmail('invalid data')) // output is undefined 
+console.log(getUserEmail({
+    id:1168,
+    name:'Priyanka',
+    email:'priyanka@gmail.com'
+}));// output is valid email
