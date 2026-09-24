@@ -111,8 +111,8 @@ type Order = {
     orderStatus: OrderSystem;
 }
 
-function assertDataNever(order: never): never {
-    throw new Error(`Unexpected order type:${order}`);
+function assertDataNever(data: never): never {
+    throw new Error(`Unexpected type:${data}`);
 }
 
 function handleOrder(order: Order): string {
@@ -171,7 +171,75 @@ function getUserEmail(response: unknown): string {
 }
 console.log(getUserEmail('invalid data')) // output is undefined 
 console.log(getUserEmail({
-    id:1168,
-    name:'Priyanka',
-    email:'priyanka@gmail.com'
+    id: 1168,
+    name: 'Priyanka',
+    email: 'priyanka@gmail.com'
 }));// output is valid email
+
+
+
+// ============================================================
+// Problem 5 — Payment Processor
+// ============================================================
+
+// Create a PaymentStatus type that allows only "pending",
+// "success", and "failed".
+//
+// Create a Payment type containing an ID that can be either a
+// string or number, an amount as a number, and a PaymentStatus.
+//
+// Create a processPayment() function that accepts a Payment and
+// returns a different message for each payment status.
+//
+// Use a never-based exhaustive check to make sure every possible
+// payment status is handled.
+//
+// Also create a logPayment() function that accepts a Payment,
+// prints its information, and returns nothing.
+//
+// Finally, create a getPaymentId() function that accepts an ID
+// that can be either a string or number and returns the ID as
+// a string. Use type narrowing to handle the two possible types.
+// Concepts: type, union, type narrowing, void, never
+
+type PaymentStatus = 'pending' | 'success' | 'failed';
+type Payment = {
+    id: number | string;
+    amount: number;
+    paymentStatus: PaymentStatus;
+}
+
+function processPayment(payment: Payment): string {
+
+    if (payment.paymentStatus === 'pending') {
+        return `Payment pending`;
+    }
+
+    else if (payment.paymentStatus === 'failed') {
+        return `Payment failed`;
+    }
+
+    else if (payment.paymentStatus === 'success') {
+        return `Payment successful`;
+    }
+
+    else {
+        return assertDataNever(payment.paymentStatus);
+    }
+}
+
+let paymentDetail: Payment = {
+    id: 111,
+    amount: 5999,
+    paymentStatus: 'success'
+}
+
+function logPayment(payment: Payment): void {
+    console.log(`
+          Id:${payment.id}
+          amount:${payment.amount}
+           status:${payment.paymentStatus}
+        `);
+}
+console.log(processPayment(paymentDetail));
+logPayment(paymentDetail)
