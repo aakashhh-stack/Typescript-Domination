@@ -35,7 +35,7 @@ let user: User = {
 
 }
 
-displayUser(user)
+// displayUser(user)
 
 
 // ============================================================
@@ -81,4 +81,62 @@ function processApiData(data: unknown): string {
 
 }
 
-console.log(processApiData([1, 2, 3, 4, 'hello']));
+// console.log(processApiData([1, 2, 3, 4, 'hello']));
+
+
+
+// ============================================================
+// Problem 3 — Order Status System
+// ============================================================
+
+// Create an OrderStatus type that allows only these four values:
+// "pending", "processing", "shipped", and "delivered".
+//
+// Then create an Order type containing an order ID, customer name,
+// and order status.
+//
+// Create a handleOrder() function that accepts an Order and returns
+// a different message depending on the current order status.
+//
+// After handling all possible statuses, add an exhaustive check
+// using never so TypeScript can detect if a new status is added
+// later but not handled inside the function.
+//
+// Concepts: type, union, type narrowing, never
+
+type OrderSystem = 'processing' | 'shipped' | 'delivered' | 'pending';
+type Order = {
+    orderId: number;
+    customerName: string;
+    orderStatus: OrderSystem;
+}
+
+function assertDataNever(order: never): never {
+    throw new Error(`Unexpected order type:${order}`);
+}
+
+function handleOrder(order: Order): string {
+    if (order.orderStatus === 'delivered') {
+        return `Order is ${order.orderStatus}`;
+    }
+    else if (order.orderStatus === 'pending') {
+        return `Order is ${order.orderStatus}`;
+    }
+    else if (order.orderStatus === 'processing') {
+        return `Order is ${order.orderStatus}`;
+    }
+    else if (order.orderStatus === 'shipped') {
+        return `Order is ${order.orderStatus}`;
+    }
+    else {
+        return assertDataNever(order.orderStatus);
+    }
+
+}
+const userOrder: Order = {
+    orderId: 101,
+    customerName: 'Rahul',
+    orderStatus: 'shipped'
+}
+console.log(handleOrder(userOrder));
+
