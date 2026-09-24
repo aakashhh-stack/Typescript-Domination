@@ -36,3 +36,49 @@ let user: User = {
 }
 
 displayUser(user)
+
+
+// ============================================================
+// Problem 2 — API Data Processor
+// ============================================================
+
+// Create a processApiData() function that receives data whose type
+// is not known in advance.
+//
+// If the received data is a string, return "String: <value>".
+// If it is a number, return "Number: <value>".
+// If it is an array of strings, return "Items: <length>".
+// For any other type of data, return "Invalid data".
+
+// You must use unknown instead of any and use type narrowing
+// to safely determine the type of the received data.
+//
+// Concepts: unknown, type narrowing
+
+function processApiData(data: unknown): string {
+
+    if (typeof data === 'string') {
+        return `String: ${data}`;
+    }
+    if (typeof data === 'number') {
+        return `Number: ${data}`;
+    }
+    if (Array.isArray(data)) {
+        // let isString: boolean = true;
+        // for (let i = 0; i < data.length; i++) {
+        //     if (typeof data[i] !== 'string') {
+        //         isString = false;
+        //         break;
+        //     }
+        // }
+
+        // optimize approach
+        const isArrayOfString = data.reduce(item => typeof item === 'string');
+
+        return isArrayOfString ? `Items: ${data.length}` : 'Data is not a array of string';
+    }
+    return `Invalid data`;
+
+}
+
+console.log(processApiData([1, 2, 3, 4, 'hello']));
