@@ -38,3 +38,47 @@ class UserManager implements User {
 const user_1 = new UserManager(101, 'Sam', 'sam@gmail.com', 'user');
 console.log(user_1.getUserInfo());
 console.log(user_1.isAdmin());
+
+// Problem 2 — Interface + Class + private
+//create interface of product and Create a ProductManager class.
+// The class should:
+// store products
+// have a method to add a product
+// have a method to find a product by ID
+// have a method to check whether a product is in stock
+
+// Requirement: Keep the product collection private.
+
+// Concepts: interface + class + private + arrays + methods.
+
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+    stock: number;
+}
+
+class ProductManager {
+
+    private _products: Product[] = [];
+
+    addProduct(newProduct: Product): string {
+        this._products.push(newProduct);
+        return `Product added successfully...`;
+    }
+
+    findProductById(id: number): Product | undefined {
+        return this._products.find(p => p.id === id);
+
+    }
+
+    isProductInStock(id: number): boolean {
+        const product = this._products.find(p => p.id === id);
+        return product !== undefined && product.stock > 0;
+    }
+}
+
+const p1 = new ProductManager();
+console.log(p1.addProduct({ id: 101, name: 'Santre', price: 69, stock: 24 }));
+console.log(p1.isProductInStock(101));
+console.log(p1.findProductById(101));
