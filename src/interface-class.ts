@@ -82,3 +82,48 @@ const p1 = new ProductManager();
 console.log(p1.addProduct({ id: 101, name: 'Santre', price: 69, stock: 24 }));
 console.log(p1.isProductInStock(101));
 console.log(p1.findProductById(101));
+
+
+// Problem 3 — Payment Processor
+
+// Create an interface called Payment that defines a payment's id as a number or string, amount as a number, and status as one of "pending", "success", or "failed".
+
+// Then create a PaymentProcessor class that implements the Payment interface, initializes all required properties through a constructor, and has a process() method that returns a different message for each payment status.
+// Use type narrowing to handle the different statuses and use a never exhaustive check so TypeScript can detect if a new payment status is added but not handled.
+
+
+interface Payment {
+    readonly id: number | string;
+    amount: number;
+    readonly status: PaymentStatus;
+}
+
+type PaymentStatus = 'success' | 'pending' | 'failed';
+
+function assertNever(status: never): never {
+    throw new Error(status);
+}
+
+class PaymentProcessor implements Payment {
+
+    constructor(
+        public readonly id: number | string,
+        public amount: number,
+        public readonly status: PaymentStatus,
+    ) { }
+
+    process(): string {
+        switch (this.status) {
+            case "failed":
+                return `Payment is failed`;
+            case 'pending':
+                return `Payment is pending`;
+            case 'success':
+                return `Payment is successful`;
+        }
+        return assertNever(this.status);
+    }
+}
+
+const payment_1 = new PaymentProcessor(1001, 5000, 'failed');
+console.log(payment_1.process());
