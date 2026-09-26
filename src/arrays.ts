@@ -25,7 +25,7 @@ class ProductInventory {
     addProduct(product: Product): string {
 
         const idx = this._products.findIndex(p => p.id === product.id);
-        
+
         if (idx === -1) {
             this._products.push(product);
             return `Product ${product.name} added successfully..`;
@@ -59,3 +59,41 @@ console.log(p.getInStockProducts());
 console.log(p.findProductById(103));
 console.log(p.removeProductById(102));
 
+
+// Problem 2: Student Marks
+// Create a TypeScript Student type that contains an id as a number, a name as a string, and marks as a number.
+// Create an array containing multiple students and then write functions that can add a new student, find a student using their ID, return all students who scored 60 or more, and calculate the average marks of all students.
+// Focus on: push(), find(), filter(), and reduce()
+
+type Student = {
+    id: number;
+    name: string;
+    marks: number;
+}
+const students: Array<Student> = [];
+function addNewStudent(s: Student): string {
+    const index = students.findIndex(st => st.id === s.id);
+    if (index === -1) {
+        students.push(s);
+        return `Student added sucessfully`;
+    }
+    return `Student id already exists`
+}
+function findStudentById(id: number): Student | undefined {
+    return students.find(st => st.id === id);
+}
+function getHighScoringStudents(): Student[] {
+    return students.filter(st => st.marks >= 60);
+}
+function calculateAverageOfAllStudents(): number | undefined {
+    if (students.length === 0) return undefined;
+    const totalMarks = students.reduce((ac, st) => ac + st.marks, 0);
+    return totalMarks / students.length;
+
+}
+console.log(addNewStudent({ id: 1001, name: 'Aman', marks: 97 }))
+console.log(addNewStudent({ id: 1002, name: 'Ajay', marks: 95 }))
+console.log(addNewStudent({ id: 1003, name: 'Aniket', marks: 87 }))
+console.log(addNewStudent({ id: 1004, name: 'vartika', marks: 91 }))
+console.log(calculateAverageOfAllStudents())
+console.log(findStudentById(1004))
