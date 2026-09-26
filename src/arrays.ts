@@ -97,3 +97,36 @@ console.log(addNewStudent({ id: 1003, name: 'Aniket', marks: 87 }))
 console.log(addNewStudent({ id: 1004, name: 'vartika', marks: 91 }))
 console.log(calculateAverageOfAllStudents())
 console.log(findStudentById(1004))
+
+
+// Problem 2: Active Users:- 
+// Create a TypeScript User type with an id as a number, a name as a string, and an isActive as a boolean.
+// Create an array containing multiple users, with both active and inactive users.
+// Write a function that returns a new array containing only the active users.
+// Also write a function that finds a user by ID and returns that user if found, otherwise undefined.
+
+type User = {
+    id: number;
+    name: string;
+    isActive: boolean;
+}
+const users: User[] = [
+    { id: 101, name: 'Abhishek', isActive: true },
+    { id: 102, name: 'Abhijeet', isActive: false },
+    { id: 103, name: 'Daya', isActive: false },
+    { id: 104, name: 'Purvi', isActive: true },
+    { id: 105, name: 'Swati', isActive: false },
+    { id: 106, name: 'Nandini', isActive: true },
+    { id: 107, name: 'Sakshi', isActive: true },
+    { id: 108, name: 'Dhruv', isActive: true },
+];
+
+function activeUsers(): User[]  {
+    return users.filter(user => user.isActive);
+}
+function findUserById(id: number): User | undefined {
+    return users.find(user => user.id === id);
+}
+console.log(activeUsers());
+console.log(findUserById(111));
+
