@@ -99,7 +99,7 @@ console.log(calculateAverageOfAllStudents())
 console.log(findStudentById(1004))
 
 
-// Problem 2: Active Users:- 
+// Problem 3: Active Users:- 
 // Create a TypeScript User type with an id as a number, a name as a string, and an isActive as a boolean.
 // Create an array containing multiple users, with both active and inactive users.
 // Write a function that returns a new array containing only the active users.
@@ -121,7 +121,7 @@ const users: User[] = [
     { id: 108, name: 'Dhruv', isActive: true },
 ];
 
-function activeUsers(): User[]  {
+function activeUsers(): User[] {
     return users.filter(user => user.isActive);
 }
 function findUserById(id: number): User | undefined {
@@ -130,3 +130,74 @@ function findUserById(id: number): User | undefined {
 console.log(activeUsers());
 console.log(findUserById(111));
 
+
+// Problem 4: Shopping Cart 🛒
+// Create a TypeScript CartItem type containing an id as a number, a productName as a string, a price as a number, and a quantity as a number.
+// Create an array containing multiple cart items and write functions that add a new item, remove an item using its ID, update the quantity of an existing item, and calculate the total price of the cart.
+// For the total price, each item's contribution should be:price × quantity
+
+// type CartItem = {
+//     id: number;
+//     productName: string;
+//     price: number;
+//     quantity: number;
+// }
+
+// const carts: CartItem[] = [
+//     { id: 201, productName: 'Wrist Watch', price: 4000, quantity: 1 },
+//     { id: 201, productName: 'Laptop', price: 29000, quantity: 1 },
+//     { id: 201, productName: 'Snikker', price: 10000, quantity: 3 },
+//     { id: 201, productName: 'T-shirts', price: 340, quantity: 4 },
+//     { id: 201, productName: 'Cargo-jeans', price: 650, quantity: 2 },
+//     { id: 201, productName: 'Peanut Butter', price: 1200, quantity: 1 },
+// ];
+
+// function addProduct(cart: CartItem): string {
+//     const product = carts.findIndex(p => p.id === cart.id);
+//     if (product === -1) {
+//         carts.push(cart);
+//         return `Product ${cart.productName} added to cart successfully...`;
+//     }
+//     return `${cart.productName} already exists in your cart..`;
+
+// }
+// function removeProductById(id: number): string {
+//     const product = carts.findIndex(p => p.id === id);
+//     if (product === -1) return `Invalid Product id..`
+//     carts.splice(product, 1);
+//     return `Product is removed successfully...`
+// }
+
+// function updateQuanity(id: number, quanity: number): string {
+//     const product = carts.find(p => p.id === id);
+//     if (!product) return `Invalid product id failed to update quantity...`;
+//     product.quantity += quanity;
+// }
+
+
+// Array Question-
+
+type Employee = {
+    id: number;
+    name: string;
+    department: string;
+    salary: number;
+};
+
+const employees: Employee[] = [
+    { id: 1, name: "Aman", department: "IT", salary: 45000 },
+    { id: 2, name: "Priya", department: "HR", salary: 60000 },
+    { id: 3, name: "Rahul", department: "IT", salary: 75000 },
+    { id: 4, name: "Neha", department: "Finance", salary: 48000 },
+];
+
+function getHighPaidEmployees(employees: Employee[]): Employee[] {
+    return employees.filter(employee => employee.salary > 50000);
+}
+
+function calculateTotalSalary(employees: Employee[]): number {
+    return employees.reduce((total, employee) => total + employee.salary, 0);
+}
+
+console.log(getHighPaidEmployees(employees));
+console.log(calculateTotalSalary(employees));
