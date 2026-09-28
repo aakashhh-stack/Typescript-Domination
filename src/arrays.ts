@@ -201,3 +201,68 @@ function calculateTotalSalary(employees: Employee[]): number {
 
 console.log(getHighPaidEmployees(employees));
 console.log(calculateTotalSalary(employees));
+
+type AppointmentStatus = "waiting" | "completed" | "cancelled";
+
+type Appointment = {
+    id: number;
+    patientName: string;
+    doctorName: string;
+    status: AppointmentStatus;
+};
+
+const appointments: Appointment[] = [
+    {
+        id: 101,
+        patientName: "Aman",
+        doctorName: "Dr. Sharma",
+        status: "waiting"
+    },
+    {
+        id: 102,
+        patientName: "Priya",
+        doctorName: "Dr. Mehta",
+        status: "completed"
+    },
+    {
+        id: 103,
+        patientName: "Rahul",
+        doctorName: "Dr. Sharma",
+        status: "waiting"
+    },
+    {
+        id: 104,
+        patientName: "Neha",
+        doctorName: "Dr. Verma",
+        status: "cancelled"
+    }
+];
+
+function getWaitingAppointments(
+    appointments: Appointment[]
+): Appointment[] {
+    return appointments.filter(
+        appointment => appointment.status === "waiting"
+    );
+}
+
+function getPatientNames(
+    appointments: Appointment[]
+): string[] {
+    return appointments.map(
+        appointment => appointment.patientName
+    );
+}
+
+function findAppointmentById(
+    appointments: Appointment[],
+    id: number
+): Appointment | undefined {
+    return appointments.find(
+        appointment => appointment.id === id
+    );
+}
+
+console.log(getWaitingAppointments(appointments));
+console.log(getPatientNames(appointments));
+console.log(findAppointmentById(appointments, 103));
